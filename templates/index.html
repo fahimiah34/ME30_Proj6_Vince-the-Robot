@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Raspberry Pi Control</title>
+    <script>
+        function sendCommand(command) {
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '/' + command, true);
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            var ip = document.getElementById('ip_address').value;
+            var delay = document.getElementById('delay_start').value;
+            var speed = document.getElementById('speed').value;
+            var params = 'ip_address=' + encodeURIComponent(ip) +
+                         '&delay_start=' + encodeURIComponent(delay) +
+                         '&speed=' + encodeURIComponent(speed);
+            xhr.send(params);
+        }
+    </script>
+</head>
+<body>
+    <h1>Control Raspberry Pi</h1>
+    <div>
+        <label for="ip_address">IP Address:</label>
+        <input type="text" id="ip_address" name="ip_address">
+    </div>
+    <div>
+        <label for="delay_start">Delay Start (seconds):</label>
+        <input type="text" id="delay_start" name="delay_start">
+    </div>
+    <div>
+        <label for="speed">Speed:</label>
+        <input type="text" id="speed" name="speed">
+    </div>
+    <button onclick="sendCommand('start')">Start</button>
+    <button onclick="sendCommand('stop')">Stop</button>
+</body>
+</html>
